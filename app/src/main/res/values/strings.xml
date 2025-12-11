@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">GarciaLovilloAlberto_Practica3</string>
+    <string name="placeholder_search">Search</string>
+    <string name="pokemon">Pokemon</string>
+    <string name="favorite_collections">Favorite Collections</string>
+    <string name="pokemon_image">Pokemon image</string>
+    <string name="cd_fab_start">start</string>
+    <string name="bottom_navigation_home">Home</string>
+    <string name="bottom_navigation_profile">Profile</string>
+
+    <string name="blastoise">Blastoise\n</string>
+    <string name="blaziken">Blaziken\n</string>
+    <string name="charizard">Charizard\n</string>
+    <string name="chesnaught">Chesnaught\n</string>
+    <string name="cinderace">Cinderace\n</string>
+    <string name="decidueye">Decidueye\n</string>
+    <string name="delphox">Delphox\n</string>
+    <string name="emboar">Emboar\n</string>
+    <string name="empoleon">Empoleon\n</string>
+    <string name="feraligatr">Feraligatr\n</string>
+    <string name="greninja">Greninja\n</string>
+    <string name="incineroar">Incineroar\n</string>
+    <string name="infernape">Infernape\n</string>
+    <string name="inteleon">Inteleon\n</string>
+    <string name="meganium">Meganium\n</string>
+    <string name="meowscarada">Meowscarada\n</string>
+    <string name="primarina">Primarina\n</string>
+    <string name="quaquaval">Quaquaval\n</string>
+    <string name="rillaboom">Rillaboom\n</string>
+    <string name="samurott">Samurott\n</string>
+    <string name="sceptile">Sceptile\n</string>
+    <string name="serperior">Serperior\n</string>
+    <string name="skeledirge">Skeledirge\n</string>
+    <string name="swampert">Swampert\n</string>
+    <string name="torterra">Torterra\n</string>
+    <string name="typhlosion">Typhlosion\n</string>
+    <string name="venusaur">Venusaur\n</string>
+</resources>
