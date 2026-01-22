@@ -19,16 +19,29 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.garcialovilloalberto_practica3.navigation.AppScreens
 
+/**
+ * Tarjeta que muestra un Pokemon con imagen y nombre.
+ *
+ * Utiliza un [ElevatedCard] que muestra la imagen y el nombre del Pokemon en un [Row].
+ * Permite reaccionar al clic mediante [onClick].
+ *
+ * @param drawable Recurso drawable que representa la imagen del Pokemon.
+ * Debe estar anotado con [DrawableRes].
+ * @param text Recurso de string que representa el nombre del Pokemon.
+ * Debe estar anotado con [StringRes].
+ * @param modifier Modificador opcional para personalizar el layout de la tarjeta.
+ * @param cardWidth Ancho de la tarjeta en dp.
+ * @param onClick Lambda que se ejecuta al pulsar la tarjeta.
+ *
+ */
 @Composable
 fun PokemonCard(
     @DrawableRes drawable: Int,
     @StringRes text: Int,
     modifier: Modifier = Modifier,
     cardWidth: Int,
-    navController: NavController
+    onClick: () -> Unit //Nuevo
 ) {
     ElevatedCard(
         shape = MaterialTheme.shapes.medium,
@@ -36,12 +49,13 @@ fun PokemonCard(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
         modifier = modifier.clickable(
-            onClick = {navController.navigate(AppScreens.ImagePokemonScreen.route  + "/$drawable")}
+            onClick = onClick //Nuevo
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(cardWidth.dp)
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.width(cardWidth.dp)
         ) {
             Image(
                 painter = painterResource(drawable),
@@ -57,18 +71,3 @@ fun PokemonCard(
         }
     }
 }
-
-
-//@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
-//@Composable
-//fun FavoritePokemonCardPreview() {
-//    GarciaLovilloAlberto_Practica3Theme {
-//        PokemonCard(
-//            text = R.string.charizard,
-//            drawable = R.drawable.charizard,
-//            modifier = Modifier.padding(8.dp),
-//            cardWidth = 240,
-//            navController = navController
-//        )
-//    }
-//}

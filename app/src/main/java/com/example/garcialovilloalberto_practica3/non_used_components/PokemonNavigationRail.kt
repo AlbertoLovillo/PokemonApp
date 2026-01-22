@@ -1,4 +1,4 @@
-package com.example.garcialovilloalberto_practica3.components
+package com.example.garcialovilloalberto_practica3.non_used_components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -57,7 +57,7 @@ fun PokemonNavigationRail(
             NavigationRailItem(icon = {
                 Icon(imageVector = Icons.Default.Bookmark, contentDescription = null)
             }, label = {
-                Text(stringResource(R.string.bottom_navigation_profile))
+                Text(stringResource(R.string.bottom_navigation_all))
             }, selected = bookmarkIcon, onClick = {
                 bookmarkIcon = true; homeIcon = false
             })

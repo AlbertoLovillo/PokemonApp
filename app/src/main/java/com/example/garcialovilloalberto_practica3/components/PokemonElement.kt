@@ -5,7 +5,6 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -19,11 +18,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.garcialovilloalberto_practica3.R
-import com.example.garcialovilloalberto_practica3.ui.theme.GarciaLovilloAlberto_Practica3Theme
 
+/**
+ * Elemento que muestra un Pokémon con imagen circular y nombre.
+ *
+ * Se muestra en un [Column]. La imagen se recorta en un [CircleShape].
+ *
+ * @param drawable Recurso drawable que representa la imagen del Pokémon.
+ * Debe estar anotado con [DrawableRes].
+ * @param text Recurso de string que representa el nombre del Pokémon.
+ * Debe estar anotado con [StringRes].
+ * @param modifier Modificador opcional para personalizar el layout del elemento.
+ *
+ */
 @Composable
 fun PokemonElement(
     @DrawableRes drawable: Int,
@@ -50,14 +58,14 @@ fun PokemonElement(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
-@Composable
-fun PokemonElementPreview() {
-    GarciaLovilloAlberto_Practica3Theme {
-        PokemonElement(
-            text = R.string.meganium,
-            drawable = R.drawable.meganium,
-            modifier = Modifier.padding(8.dp)
-        )
-    }
-}
+//@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+//@Composable
+//fun PokemonElementPreview() {
+//    PokemonTheme {
+//        PokemonElement(
+//            text = R.string.meganium,
+//            drawable = R.drawable.meganium,
+//            modifier = Modifier.padding(8.dp)
+//        )
+//    }
+//}

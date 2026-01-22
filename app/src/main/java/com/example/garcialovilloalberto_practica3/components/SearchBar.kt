@@ -15,22 +15,36 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.garcialovilloalberto_practica3.R
 
+/**
+* Buscador simple con icono de lupa y placeholder. No es funcional.
+*
+* Utiliza un [TextField] con el icono de búsqueda [leadingIcon] y un texto de placeholder.
+*
+* @param modifier Modificador opcional para personalizar el layout del TextField.
+*
+*/
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier
 ) {
     TextField(
-        value = "", onValueChange = {}, leadingIcon = {
+        value = "",
+        onValueChange = {},
+        leadingIcon = {
             Icon(
-                imageVector = Icons.Default.Search, contentDescription = null
+                imageVector = Icons.Default.Search,
+                contentDescription = null
             )
-        }, colors = TextFieldDefaults.colors(
+        },
+        colors = TextFieldDefaults.colors(
             unfocusedContainerColor = MaterialTheme.colorScheme.surface,
             focusedContainerColor = MaterialTheme.colorScheme.surface
-        ), placeholder = {
+        ),
+        placeholder = {
             Text(stringResource(R.string.placeholder_search))
-        }, modifier = modifier
+        },
+        modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = 56.dp)
+            .heightIn(min = 64.dp)
     )
 }

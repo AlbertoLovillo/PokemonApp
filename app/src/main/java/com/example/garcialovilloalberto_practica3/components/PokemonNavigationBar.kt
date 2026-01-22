@@ -1,57 +1,94 @@
 package com.example.garcialovilloalberto_practica3.components
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.DensitySmall
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import com.example.garcialovilloalberto_practica3.R
-import com.example.garcialovilloalberto_practica3.navigation.AppScreens
+import com.example.garcialovilloalberto_practica3.navigation.Routes
+import com.example.garcialovilloalberto_practica3.ui.theme.blancoOscuro
+import com.example.garcialovilloalberto_practica3.ui.theme.negroClaro
 
+/**
+ * Barra de navegación que permite moverse entre las pantallas de la aplicación.
+ *
+ * Utiliza [NavigationBar] y muestra elementos de navegación para navegar entre pantallas.
+ * El estado de selección se basa en la ruta actual del [backStack].
+ *
+ * @param backStack Pila de navegación que mantiene el historial de pantallas.
+ * Se utiliza para determinar la ruta actual y para navegar a nuevas rutas.
+ * @param modifier Modificador opcional para personalizar el layout de la barra de navegación.
+ *
+ */
 @Composable
-fun PokemonNavigationBar(modifier: Modifier = Modifier, navController: NavController) {
+fun PokemonNavigationBar(
+    backStack: NavBackStack<NavKey>,
+    modifier: Modifier = Modifier
+) {
+    val currentRoute = backStack.lastOrNull()
+
     NavigationBar(
+        containerColor = negroClaro,
+        contentColor = blancoOscuro,
         modifier = modifier
     ) {
-        var homeIcon by remember { mutableStateOf(true) }
-        var bookmarkIcon by remember { mutableStateOf(false) }
+        if (currentRoute != Routes.MainPokemonScreen) {
+            NavigationBarItem(
+                selected = false,
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBackIosNew,
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(R.string.bottom_navigation_return)
+                    )
+                },
+                onClick = { backStack.removeLastOrNull() }
+            )
+        }
 
-        NavigationBarItem(icon = {
-            Icon(
-                imageVector = Icons.Default.Home, contentDescription = null
-            )
-        }, label = {
-            Text(
-                text = stringResource(R.string.bottom_navigation_home)
-            )
-        }, selected = homeIcon, onClick = {
-            navController.navigate(AppScreens.MainPokemonScreen.route)
-            homeIcon = true; bookmarkIcon = false
-        })
-        NavigationBarItem(icon = {
-            Icon(
-                imageVector = Icons.Default.AccountCircle, contentDescription = null
-            )
-        }, label = {
-            Text(
-                text = stringResource(R.string.bottom_navigation_profile)
-            )
-        }, selected = bookmarkIcon, onClick = {
-            navController.navigate(AppScreens.AllPokemonScreen.route)
-            bookmarkIcon = true; homeIcon = false
-        })
+        NavigationBarItem(
+            selected = (currentRoute == Routes.MainPokemonScreen),
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Home,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(
+                    text = stringResource(R.string.bottom_navigation_home)
+                )
+            },
+            onClick = { backStack.add(Routes.MainPokemonScreen) }
+        )
+
+        NavigationBarItem(
+            selected = (currentRoute == Routes.AllPokemonScreen),
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.DensitySmall,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(
+                    text = stringResource(R.string.bottom_navigation_all)
+                )
+            },
+            onClick = { backStack.add(Routes.AllPokemonScreen) }
+        )
     }
 }
-
-// La otra pantalla se diseña con figma y sera una lista de cards todos los pokemon en orden alfabetico y
-// que al clickar se abra la imagen en grande. Esto lo haria con modifier.clickable y las imagenes tendran el mismo ancho que los cards

@@ -1,60 +1,72 @@
 package com.example.garcialovilloalberto_practica3.screens
 
-import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.garcialovilloalberto_practica3.R
 import com.example.garcialovilloalberto_practica3.components.FavoritePokemonGrid
 import com.example.garcialovilloalberto_practica3.components.MainPokemonCarousel
-import com.example.garcialovilloalberto_practica3.components.SearchBar
+import com.example.garcialovilloalberto_practica3.components.ScreenModel
+import com.example.garcialovilloalberto_practica3.data.PokemonViewModel
 
+/**
+ * Pantalla principal de la aplicación.
+ *
+ * Muestra una lista desplazable que contiene un carrusel de Pokemon por generación y una cuadricula
+ * de Pokemon favoritos.
+ * El estado de la UI se obtiene desde [PokemonViewModel].
+ *
+ * @param modifier Modificador opcional para personalizar el layout de la pantalla.
+ * @param viewModel ViewModel que expone el estado principal de la UI mediante [mainUiState].
+ * @param onNavigateToImagePokemon Callback que se ejecuta al seleccionar un Pokemon, recibiendo
+ * como parámetro el ID del Pokemon seleccionado.
+ * @param lazyListState Estado de la lista utilizado para controlar y observar el desplazamiento del
+ * [LazyColumn].
+ *
+ */
 @Composable
-fun MainPokemonScreen(modifier: Modifier = Modifier, navController: NavController) {
-    Column(
-        modifier.verticalScroll(rememberScrollState())
-    ) {
-        Spacer(Modifier.height(32.dp))
-
-        SearchBar(Modifier.padding(horizontal = 16.dp))
-        HomeSection(navController = navController, title = R.string.pokemon) {
-            MainPokemonCarousel()
-        }
-        HomeSection(navController = navController, title = R.string.favorite_collections) {
-            FavoritePokemonGrid(navController = navController)
-        }
-        Spacer(Modifier.height(16.dp))
-    }
-}
-
-
-@Composable
-fun HomeSection(
-    navController: NavController,
-    @StringRes title: Int,
+fun MainPokemonScreen(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
-) {
-    Column(modifier) {
-        Text(
-            stringResource(title),
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier
-                .paddingFromBaseline(top = 40.dp, bottom = 16.dp)
-                .padding(horizontal = 16.dp)
-        )
-        content()
+    viewModel: PokemonViewModel = viewModel(),
+    onNavigateToImagePokemon: (Int) -> Unit,
+    lazyListState: LazyListState = rememberLazyListState()
+    ) {
+    val uiState by viewModel.mainUiState.collectAsState()
+
+    LazyColumn(
+        state = lazyListState,
+        modifier = modifier
+    ) {
+        item {
+            Spacer(Modifier.height(86.dp))
+        }
+        item {
+            ScreenModel(
+                title = R.string.pokemon) {
+                MainPokemonCarousel(
+                    pokemonList = uiState.generationalPokemon)
+            }
+        }
+
+        item {
+            ScreenModel(
+                title = R.string.favorite_collections) {
+                FavoritePokemonGrid(
+                    pokemonList = uiState.favoritePokemon,
+                    onPokemonClick = onNavigateToImagePokemon)
+            }
+        }
+
+        item {
+            Spacer(Modifier.height(16.dp))
+        }
     }
 }
-

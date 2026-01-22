@@ -1,14 +1,32 @@
-package com.example.garcialovilloalberto_practica3.components
+package com.example.garcialovilloalberto_practica3.data
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.example.garcialovilloalberto_practica3.R
 import kotlin.to
 
+/**
+ * Representa un par de recursos compuesto por una imagen y un texto.
+ *
+ * Se utiliza para modelar elementos visuales que requieren un drawable y una cadena asociada, como
+ * tarjetas o listas de Pokemon.
+ *
+ * @property drawable Recurso drawable que representa la imagen.
+ * @property text Recurso de string que representa el texto asociado.
+ *
+ */
 data class DrawableStringPair(
     @DrawableRes val drawable: Int, @StringRes val text: Int
 )
 
+
+/**
+ * Lista de Pokemon ordenados alfabéticamente.
+ *
+ * Cada elemento contiene el recurso de imagen del Pokemon y su nombre, utilizada principalmente
+ * para vistas que requieren un orden alfabético.
+ *
+ */
 val pokemonDataAlphabetical = listOf(
     R.drawable.blastoise to R.string.blastoise,
     R.drawable.blaziken to R.string.blaziken,
@@ -40,6 +58,12 @@ val pokemonDataAlphabetical = listOf(
 ).map { DrawableStringPair(it.first, it.second) }
 
 
+/**
+ * Lista de Pokemon organizados por generación.
+ *
+ * El orden de los elementos sigue la secuencia de las generaciones de Pokemon.
+ *
+ */
 val pokemonDataGenerational = listOf(
     R.drawable.venusaur to R.string.venusaur,
     R.drawable.charizard to R.string.charizard,
@@ -70,7 +94,13 @@ val pokemonDataGenerational = listOf(
     R.drawable.quaquaval to R.string.quaquaval,
 ).map { DrawableStringPair(it.first, it.second) }
 
-
+/**
+ * Colección de Pokemon favoritos.
+ *
+ * Contiene una selección reducida de Pokemon destacados, utilizada
+ * para secciones de favoritos o colecciones especiales.
+ *
+ */
 val favoriteCollectionData = listOf(
     R.drawable.venusaur to R.string.venusaur,
     R.drawable.typhlosion to R.string.typhlosion,
