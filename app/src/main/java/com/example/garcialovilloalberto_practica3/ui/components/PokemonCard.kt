@@ -1,4 +1,4 @@
-package com.example.garcialovilloalberto_practica3.components
+package com.example.garcialovilloalberto_practica3.ui.components
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -41,7 +41,7 @@ fun PokemonCard(
     @StringRes text: Int,
     modifier: Modifier = Modifier,
     cardWidth: Int,
-    onClick: () -> Unit //Nuevo
+    onClick: () -> Unit
 ) {
     ElevatedCard(
         shape = MaterialTheme.shapes.medium,
@@ -49,7 +49,7 @@ fun PokemonCard(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
         modifier = modifier.clickable(
-            onClick = onClick //Nuevo
+            onClick = onClick
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {

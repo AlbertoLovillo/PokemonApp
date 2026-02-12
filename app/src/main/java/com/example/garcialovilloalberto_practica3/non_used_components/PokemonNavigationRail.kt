@@ -47,7 +47,7 @@ fun PokemonNavigationRail(
                     imageVector = Icons.Default.Home, contentDescription = null
                 )
             }, label = {
-                Text(stringResource(R.string.bottom_navigation_home))
+                Text("Home")
             }, selected = homeIcon, onClick = {
                 homeIcon = true; bookmarkIcon = false
             })
@@ -57,7 +57,7 @@ fun PokemonNavigationRail(
             NavigationRailItem(icon = {
                 Icon(imageVector = Icons.Default.Bookmark, contentDescription = null)
             }, label = {
-                Text(stringResource(R.string.bottom_navigation_all))
+                Text("All")
             }, selected = bookmarkIcon, onClick = {
                 bookmarkIcon = true; homeIcon = false
             })

@@ -7,27 +7,12 @@ import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
-import com.example.garcialovilloalberto_practica3.screens.AllPokemonScreen
-import com.example.garcialovilloalberto_practica3.screens.ImagePokemonScreen
-import com.example.garcialovilloalberto_practica3.screens.MainPokemonScreen
-import kotlinx.serialization.Serializable
-
-/**
- * Representa las rutas de navegación de la aplicación.
- *
- * Cada subclase define una pantalla navegable y, cuando es necesario,
- * los parámetros requeridos para su visualización.
- */
-sealed class Routes : NavKey {
-    @Serializable
-    data object MainPokemonScreen : Routes()
-
-    @Serializable
-    data object AllPokemonScreen : Routes()
-
-    @Serializable
-    data class ImagePokemonScreen(val drawable: Int) : Routes()
-}
+import com.example.garcialovilloalberto_practica3.ui.screens.AllPokemonScreen
+import com.example.garcialovilloalberto_practica3.ui.screens.ImagePokemonScreen
+import com.example.garcialovilloalberto_practica3.ui.screens.HomePokemonScreen
+import com.example.garcialovilloalberto_practica3.ui.screens.LoginScreen
+import com.example.garcialovilloalberto_practica3.ui.screens.RegisterScreen
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * Composable encargado de definir la navegación de la aplicación.
@@ -37,15 +22,16 @@ sealed class Routes : NavKey {
  *
  * @param padding Espaciado interno proporcionado por el contenedor superior.
  * @param backStack Pila de navegación que mantiene el historial de pantallas.
- * @param mainScreenScrollState Estado de scroll de la pantalla principal de Pokemon.
+ * @param homeScreenScrollState Estado de scroll de la pantalla principal de Pokemon.
  * @param allPokemonScrollState Estado de scroll de la pantalla de todos los Pokemon.
  *
  */
 @Composable
 fun AppNavigation(
+    auth: FirebaseAuth,
     padding: PaddingValues,
     backStack: NavBackStack<NavKey>,
-    mainScreenScrollState: LazyListState,
+    homeScreenScrollState: LazyListState,
     allPokemonScrollState: LazyListState
 ) {
 
@@ -53,27 +39,41 @@ fun AppNavigation(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryProvider = entryProvider {
-            entry<Routes.MainPokemonScreen> {
-                MainPokemonScreen(
+            entry<Routes.HomePokemon> {
+                HomePokemonScreen(
                     onNavigateToImagePokemon = { drawable ->
-                    backStack.add(Routes.ImagePokemonScreen(drawable))
+                    backStack.add(Routes.ImagePokemon(drawable))
                     },
-                    lazyListState = mainScreenScrollState
+                    lazyListState = homeScreenScrollState
                 )
             }
-            entry<Routes.AllPokemonScreen> {
+            entry<Routes.AllPokemon> {
                 AllPokemonScreen(
                     onNavigateToImagePokemon = { drawable ->
-                        backStack.add(Routes.ImagePokemonScreen(drawable))
+                        backStack.add(Routes.ImagePokemon(drawable))
                     },
                     onNavigateBack = { backStack.removeLastOrNull() },
                     lazyListState = allPokemonScrollState
                 )
             }
-            entry<Routes.ImagePokemonScreen> { entry ->
+            entry<Routes.ImagePokemon> { entry ->
                 ImagePokemonScreen(
                     drawable = entry.drawable,
                     onNavigateBack = { backStack.removeLastOrNull() }
+                )
+            }
+            entry<Routes.Login> { entry ->
+                LoginScreen(
+                    auth = auth,
+                    onNavigateToRegister = { backStack.add(Routes.Register) },
+                    onNavigateToHome = { backStack.add(Routes.HomePokemon) }
+                )
+            }
+            entry<Routes.Register> { entry ->
+                RegisterScreen(
+                    auth = auth,
+                    onNavigateToLogin = { backStack.add(Routes.Login) },
+                    onNavigateToHome = { backStack.add(Routes.HomePokemon) }
                 )
             }
         }

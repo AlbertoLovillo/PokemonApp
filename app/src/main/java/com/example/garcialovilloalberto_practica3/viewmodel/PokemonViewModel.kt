@@ -1,6 +1,11 @@
-package com.example.garcialovilloalberto_practica3.data
+package com.example.garcialovilloalberto_practica3.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.example.garcialovilloalberto_practica3.data.AllPokemonUiState
+import com.example.garcialovilloalberto_practica3.data.MainPokemonUiState
+import com.example.garcialovilloalberto_practica3.data.favoriteCollectionData
+import com.example.garcialovilloalberto_practica3.data.pokemonDataAlphabetical
+import com.example.garcialovilloalberto_practica3.data.pokemonDataGenerational
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -9,7 +14,7 @@ import kotlinx.coroutines.flow.update
 /**
  * ViewModel encargado de gestionar el estado de la UI.
  *
- * Expone estados inmutables mediante [StateFlow] para las distintas pantallas de la aplicación,
+ * Expone estados inmutables mediante [kotlinx.coroutines.flow.StateFlow] para las distintas pantallas de la aplicación,
  * separando la lógica de presentación de la interfaz de usuario.
  *
  */
@@ -34,14 +39,14 @@ class PokemonViewModel : ViewModel() {
     private fun loadData() {
         _mainUiState.update {
             it.copy(
-                generationalPokemon = pokemonDataGenerational,
-                favoritePokemon = favoriteCollectionData
+                homePokemonList = pokemonDataGenerational,
+                favoritePokemonList = favoriteCollectionData
             )
         }
 
         _allPokemonUiState.update {
             it.copy(
-                allPokemon = pokemonDataAlphabetical
+                allPokemonList = pokemonDataAlphabetical
             )
         }
     }

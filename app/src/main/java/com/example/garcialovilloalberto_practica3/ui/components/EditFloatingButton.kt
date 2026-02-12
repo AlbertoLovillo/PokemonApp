@@ -1,4 +1,4 @@
-package com.example.garcialovilloalberto_practica3.components
+package com.example.garcialovilloalberto_practica3.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize

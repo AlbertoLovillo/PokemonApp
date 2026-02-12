@@ -1,4 +1,4 @@
-package com.example.garcialovilloalberto_practica3.animations
+package com.example.garcialovilloalberto_practica3.ui.animations
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.Animatable

@@ -1,4 +1,4 @@
-package com.example.garcialovilloalberto_practica3.components
+package com.example.garcialovilloalberto_practica3.ui.components
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
@@ -26,13 +26,13 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun ScreenModel(
-    @StringRes title: Int,
+    title: String,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
     Column(modifier) {
         Text(
-            stringResource(title),
+            text = title,
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
                 .paddingFromBaseline(top = 40.dp, bottom = 16.dp)

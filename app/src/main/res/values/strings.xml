@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">GarciaLovilloAlberto_Practica3</string>
-    <string name="placeholder_search">Search</string>
-    <string name="pokemon">Pokemon</string>
-    <string name="favorite_collections">Favorite Collections</string>
-    <string name="pokemon_image">Pokemon image</string>
-    <string name="cd_fab_start">start</string>
-    <string name="bottom_navigation_home">Home</string>
-    <string name="bottom_navigation_all">All</string>
-    <string name="bottom_navigation_return">Return</string>
+<!--    <string name="placeholder_search">Search</string>-->
+<!--    <string name="pokemon">Pokemon</string>-->
+<!--    <string name="favorite_collections">Favorite Collections</string>-->
+<!--    <string name="pokemon_image">Pokemon image</string>-->
+<!--    <string name="cd_fab_start">start</string>-->
+<!--    <string name="bottom_navigation_home">Home</string>-->
+<!--    <string name="bottom_navigation_all">All</string>-->
+<!--    <string name="bottom_navigation_return">Return</string>-->
 
     <string name="blastoise">Blastoise\n</string>
     <string name="blaziken">Blaziken\n</string>

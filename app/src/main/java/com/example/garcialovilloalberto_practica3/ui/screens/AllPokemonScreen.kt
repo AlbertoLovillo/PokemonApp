@@ -1,4 +1,4 @@
-package com.example.garcialovilloalberto_practica3.screens
+package com.example.garcialovilloalberto_practica3.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,10 +13,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.garcialovilloalberto_practica3.R
-import com.example.garcialovilloalberto_practica3.components.AllPokemonColumn
-import com.example.garcialovilloalberto_practica3.components.ScreenModel
-import com.example.garcialovilloalberto_practica3.data.PokemonViewModel
+import com.example.garcialovilloalberto_practica3.ui.components.AllPokemonColumn
+import com.example.garcialovilloalberto_practica3.ui.components.ScreenModel
+import com.example.garcialovilloalberto_practica3.viewmodel.PokemonViewModel
 
 /**
  * Pantalla que muestra la lista completa de Pokemon.
@@ -49,10 +48,10 @@ fun AllPokemonScreen(
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         Spacer(Modifier.height(86.dp))
         ScreenModel(
-            title = R.string.pokemon
+            title = "Pokemon"
         ) {
             AllPokemonColumn(
-                pokemonList = uiState.allPokemon,
+                pokemonList = uiState.allPokemonList,
                 onPokemonClick =  onNavigateToImagePokemon,
                 lazyListState = lazyListState
             )

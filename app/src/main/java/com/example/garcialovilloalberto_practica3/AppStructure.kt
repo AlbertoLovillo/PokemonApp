@@ -13,9 +13,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.rememberNavBackStack
-import com.example.garcialovilloalberto_practica3.components.EditFloatingActionButton
-import com.example.garcialovilloalberto_practica3.components.PokemonNavigationBar
-import com.example.garcialovilloalberto_practica3.components.SearchBar
+import com.example.garcialovilloalberto_practica3.ui.components.EditFloatingActionButton
+import com.example.garcialovilloalberto_practica3.ui.components.PokemonNavigationBar
+import com.example.garcialovilloalberto_practica3.ui.components.SearchBar
 import com.example.garcialovilloalberto_practica3.navigation.AppNavigation
 import com.example.garcialovilloalberto_practica3.navigation.Routes
 import com.example.garcialovilloalberto_practica3.ui.theme.PokemonTheme
@@ -23,6 +23,7 @@ import com.example.garcialovilloalberto_practica3.ui.theme.blancoOscuro
 import com.example.garcialovilloalberto_practica3.ui.theme.fondoAgua
 import com.example.garcialovilloalberto_practica3.ui.theme.fondoFuego
 import com.example.garcialovilloalberto_practica3.ui.theme.fondoPlanta
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * Composable raíz de la aplicación.
@@ -37,20 +38,22 @@ import com.example.garcialovilloalberto_practica3.ui.theme.fondoPlanta
  * 
  */
 @Composable
-fun MyPokemonApp() {
+fun AppStructure(
+    auth: FirebaseAuth
+) {
 
-    val backStack = rememberNavBackStack(Routes.MainPokemonScreen)
+    val backStack = rememberNavBackStack(Routes.HomePokemon)
     val currentRoute = backStack.lastOrNull()
-    val mainScreenScrollState = rememberLazyListState()
+    val homeScreenScrollState = rememberLazyListState()
     val allPokemonScrollState = rememberLazyListState()
-    val showEditButton = currentRoute == Routes.MainPokemonScreen || currentRoute == Routes.AllPokemonScreen
+    val showEditButton = currentRoute == Routes.HomePokemon || currentRoute == Routes.AllPokemon
 
 
     val animatedBackgroundColor by animateColorAsState(
         targetValue = when (currentRoute) {
-            Routes.MainPokemonScreen -> fondoPlanta
-            Routes.AllPokemonScreen -> fondoAgua
-            is Routes.ImagePokemonScreen -> fondoFuego
+            Routes.HomePokemon -> fondoPlanta
+            Routes.AllPokemon -> fondoAgua
+            is Routes.ImagePokemon -> fondoFuego
             else -> blancoOscuro
         },
         label = "backgroundColorAnimation"
@@ -59,22 +62,29 @@ fun MyPokemonApp() {
     PokemonTheme {
         Scaffold(
             topBar = {
-                Column(Modifier.fillMaxWidth()) {
-                    Spacer(Modifier.height(32.dp))
-                    SearchBar(Modifier.padding(horizontal = 16.dp))
+                if (currentRoute != Routes.Login && currentRoute != Routes.Register) {
+                    Column(Modifier.fillMaxWidth()) {
+                        Spacer(Modifier.height(40.dp))
+                        SearchBar(
+                            onBack = { backStack.removeLastOrNull() }
+                        )
+                        Spacer(Modifier.height(10.dp))
+                    }
                 }
             },
             bottomBar = {
-                PokemonNavigationBar(
-                    backStack = backStack,
-                )
+                if (currentRoute != Routes.Login && currentRoute != Routes.Register) {
+                    PokemonNavigationBar(
+                        backStack = backStack,
+                    )
+                }
             },
             containerColor = animatedBackgroundColor,
             floatingActionButton = {
                 if (showEditButton) {
                     val isScrolling = when (currentRoute) {
-                        Routes.MainPokemonScreen -> mainScreenScrollState.isScrollInProgress
-                        Routes.AllPokemonScreen -> allPokemonScrollState.isScrollInProgress
+                        Routes.HomePokemon -> homeScreenScrollState.isScrollInProgress
+                        Routes.AllPokemon -> allPokemonScrollState.isScrollInProgress
                         else -> false
                     }
 
@@ -83,14 +93,14 @@ fun MyPokemonApp() {
                         onClick = { }
                     )
                 }
-            }
-            ,
+            },
         ) { innerPadding ->
             Spacer(Modifier.height(128.dp))
             AppNavigation(
+                auth = auth,
                 padding = innerPadding,
                 backStack = backStack,
-                mainScreenScrollState = mainScreenScrollState,
+                homeScreenScrollState = homeScreenScrollState,
                 allPokemonScrollState = allPokemonScrollState
             )
         }

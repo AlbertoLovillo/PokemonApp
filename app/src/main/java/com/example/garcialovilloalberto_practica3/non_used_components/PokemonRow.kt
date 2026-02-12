@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.garcialovilloalberto_practica3.components.PokemonElement
+import com.example.garcialovilloalberto_practica3.ui.components.PokemonElement
 import com.example.garcialovilloalberto_practica3.data.pokemonDataGenerational
 
 

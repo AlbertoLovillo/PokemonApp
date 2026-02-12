@@ -1,4 +1,4 @@
-package com.example.garcialovilloalberto_practica3.screens
+package com.example.garcialovilloalberto_practica3.ui.screens
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.garcialovilloalberto_practica3.R
-import com.example.garcialovilloalberto_practica3.animations.swipeToDismiss
-import com.example.garcialovilloalberto_practica3.components.ImagePokemon
-import com.example.garcialovilloalberto_practica3.components.ScreenModel
+import com.example.garcialovilloalberto_practica3.ui.animations.swipeToDismiss
+import com.example.garcialovilloalberto_practica3.ui.components.ImagePokemon
+import com.example.garcialovilloalberto_practica3.ui.components.ScreenModel
 
 /**
  * Pantalla que muestra la imagen detallada de un Pokemon.
@@ -35,7 +35,7 @@ fun ImagePokemonScreen(
         Spacer(Modifier.height(86.dp))
 
         ScreenModel(
-            title = R.string.pokemon_image
+            title = "Pokemon image"
         ) {
             ImagePokemon(drawable)
         }

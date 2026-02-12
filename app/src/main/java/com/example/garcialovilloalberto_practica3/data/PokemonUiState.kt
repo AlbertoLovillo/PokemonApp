@@ -9,13 +9,13 @@ package com.example.garcialovilloalberto_practica3.data
  * Este estado es inmutable y está pensado para ser observado desde composables mediante flujos de
  * estado.
  *
- * @property generationalPokemon Lista de Pokemon ordenados por generación.
- * @property favoritePokemon Lista de Pokemon favoritos.
+ * @property homePokemonList Lista de Pokemon ordenados por generación.
+ * @property favoritePokemonList Lista de Pokemon favoritos.
  *
  */
 data class MainPokemonUiState(
-    val generationalPokemon: List<DrawableStringPair> = emptyList(),
-    val favoritePokemon: List<DrawableStringPair> = emptyList()
+    val homePokemonList: List<DrawableStringPair> = emptyList(),
+    val favoritePokemonList: List<DrawableStringPair> = emptyList()
 )
 
 /**
@@ -25,9 +25,9 @@ data class MainPokemonUiState(
  *
  * Este estado es inmutable y permite una representación declarativa de la interfaz de usuario.
  *
- * @property allPokemon Lista completa de Pokemon.
+ * @property allPokemonList Lista completa de Pokemon.
  *
  */
 data class AllPokemonUiState(
-    val allPokemon: List<DrawableStringPair> = emptyList()
+    val allPokemonList: List<DrawableStringPair> = emptyList()
 )

@@ -1,4 +1,4 @@
-package com.example.garcialovilloalberto_practica3.screens
+package com.example.garcialovilloalberto_practica3.ui.screens
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -11,11 +11,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.garcialovilloalberto_practica3.R
-import com.example.garcialovilloalberto_practica3.components.FavoritePokemonGrid
-import com.example.garcialovilloalberto_practica3.components.MainPokemonCarousel
-import com.example.garcialovilloalberto_practica3.components.ScreenModel
-import com.example.garcialovilloalberto_practica3.data.PokemonViewModel
+import com.example.garcialovilloalberto_practica3.ui.components.FavoritePokemonGrid
+import com.example.garcialovilloalberto_practica3.ui.components.MainPokemonCarousel
+import com.example.garcialovilloalberto_practica3.ui.components.ScreenModel
+import com.example.garcialovilloalberto_practica3.viewmodel.PokemonViewModel
 
 /**
  * Pantalla principal de la aplicación.
@@ -33,7 +32,7 @@ import com.example.garcialovilloalberto_practica3.data.PokemonViewModel
  *
  */
 @Composable
-fun MainPokemonScreen(
+fun HomePokemonScreen(
     modifier: Modifier = Modifier,
     viewModel: PokemonViewModel = viewModel(),
     onNavigateToImagePokemon: (Int) -> Unit,
@@ -50,17 +49,17 @@ fun MainPokemonScreen(
         }
         item {
             ScreenModel(
-                title = R.string.pokemon) {
+                title = "Pokemon") {
                 MainPokemonCarousel(
-                    pokemonList = uiState.generationalPokemon)
+                    pokemonList = uiState.homePokemonList)
             }
         }
 
         item {
             ScreenModel(
-                title = R.string.favorite_collections) {
+                title = "Favorite Collections") {
                 FavoritePokemonGrid(
-                    pokemonList = uiState.favoritePokemon,
+                    pokemonList = uiState.favoritePokemonList,
                     onPokemonClick = onNavigateToImagePokemon)
             }
         }
