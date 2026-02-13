@@ -35,15 +35,32 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.garcialovilloalberto_practica3.ui.components.ErrorAlert
 import com.example.garcialovilloalberto_practica3.viewmodel.AuthenticationViewModel
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.tasks.await
 
 @Composable
 fun LoginScreen(
-    viewModel: AuthenticationViewModel = viewModel<AuthenticationViewModel>(),
-    auth: FirebaseAuth,
+//    auth: FirebaseAuth,   // -> Quitado al tener que modificar el AuthenticationViewModel
+//    viewModel: AuthenticationViewModel = viewModel<AuthenticationViewModel>(),   // -> Quitado para poder crearlo abajo de la forma necesaria.
     onNavigateToRegister: () -> Unit,
     onNavigateToHome: () -> Unit
-
 ) {
+
+    // Añadido para que el AuthenticationViewModel pueda iniciar sesión en Firebase sin depender directamente de la implementación.
+    val firebaseAuth = FirebaseAuth.getInstance()
+
+    val viewModel = remember {
+        AuthenticationViewModel { email, password ->
+            try {
+                firebaseAuth
+                    .signInWithEmailAndPassword(email, password)
+                    .await()
+                Result.success(Unit)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
+
     val uiState by viewModel.uiState.collectAsState()
 
     var hide by remember { mutableStateOf(true) }
@@ -94,7 +111,7 @@ fun LoginScreen(
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                viewModel.clickLogin(auth, onNavigateToHome)
+                viewModel.clickLogin(onNavigateToHome)
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary

@@ -38,7 +38,7 @@ fun HomePokemonScreen(
     onNavigateToImagePokemon: (Int) -> Unit,
     lazyListState: LazyListState = rememberLazyListState()
     ) {
-    val uiState by viewModel.mainUiState.collectAsState()
+    val uiState by viewModel.homeUiState.collectAsState()
 
     LazyColumn(
         state = lazyListState,

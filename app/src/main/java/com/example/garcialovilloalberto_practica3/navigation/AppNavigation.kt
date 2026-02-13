@@ -64,7 +64,7 @@ fun AppNavigation(
             }
             entry<Routes.Login> { entry ->
                 LoginScreen(
-                    auth = auth,
+//                    auth = auth,   // -> Quitado al tener que modificar el AuthenticationViewModel
                     onNavigateToRegister = { backStack.add(Routes.Register) },
                     onNavigateToHome = { backStack.add(Routes.HomePokemon) }
                 )

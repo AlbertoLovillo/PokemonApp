@@ -42,7 +42,7 @@ fun AppStructure(
     auth: FirebaseAuth
 ) {
 
-    val backStack = rememberNavBackStack(Routes.HomePokemon)
+    val backStack = rememberNavBackStack(Routes.Login)
     val currentRoute = backStack.lastOrNull()
     val homeScreenScrollState = rememberLazyListState()
     val allPokemonScrollState = rememberLazyListState()

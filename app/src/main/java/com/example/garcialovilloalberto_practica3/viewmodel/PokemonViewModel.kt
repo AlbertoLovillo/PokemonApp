@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.update
 class PokemonViewModel : ViewModel() {
 
     private val _mainUiState = MutableStateFlow(MainPokemonUiState())
-    val mainUiState: StateFlow<MainPokemonUiState> = _mainUiState.asStateFlow()
+    val homeUiState: StateFlow<MainPokemonUiState> = _mainUiState.asStateFlow()
 
     private val _allPokemonUiState = MutableStateFlow(AllPokemonUiState())
     val allPokemonUiState: StateFlow<AllPokemonUiState> = _allPokemonUiState.asStateFlow()
