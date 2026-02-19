@@ -15,11 +15,14 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+// Prueba de Navigation 3 (ejercicio 3c)
 class AppNavigationInstrumentalTest {
 
+    // Regla que permite interacturar con la interfaz
     @get:Rule
     val composeRule = createAndroidComposeRule<ComponentActivity>()
 
+    // Crea un BackStack para el test
     private lateinit var backStack: NavBackStack<NavKey>
 
     @Before
@@ -28,7 +31,7 @@ class AppNavigationInstrumentalTest {
     }
 
     @Test
-    fun login_navigates_to_home() {
+    fun login_NavigatesToHome() {
         composeRule.setContent {
             AppNavigation(
                 auth = FirebaseAuth.getInstance(),
@@ -39,17 +42,17 @@ class AppNavigationInstrumentalTest {
             )
         }
 
-        // Act
+        // Ejecuto eso en en hilo principal (UI Thread)
         composeRule.runOnUiThread {
             backStack.add(Routes.HomePokemon)
         }
 
-        // Assert
+        // Compruebo que la ultima pantalla cargada es la indicada antes
         assertTrue(backStack.last() is Routes.HomePokemon)
     }
 
     @Test
-    fun navigate_to_image_adds_correct_route() {
+    fun navigateToImage_AddRutaCorrecta() {
         composeRule.setContent {
             AppNavigation(
                 auth = FirebaseAuth.getInstance(),
@@ -62,18 +65,21 @@ class AppNavigationInstrumentalTest {
 
         val drawableId = 123
 
+        // Ejecuto eso en en hilo principal (UI Thread)
         composeRule.runOnUiThread {
             backStack.add(Routes.ImagePokemon(drawableId))
         }
 
         val last = backStack.last()
 
+        // Compruebo que la ultima pantalla cargada es la indicada antes
         assertTrue(last is Routes.ImagePokemon)
+        // Compruebo que el drawableId sea el de la pantalla ImagePokemon
         assertEquals(drawableId, (last as Routes.ImagePokemon).drawable)
     }
 
     @Test
-    fun back_removes_last_entry() {
+    fun navigateBack_RemoveSaltOrNull() {
         composeRule.setContent {
             AppNavigation(
                 auth = FirebaseAuth.getInstance(),
@@ -84,11 +90,13 @@ class AppNavigationInstrumentalTest {
             )
         }
 
+        // Ejecuto eso en en hilo principal (UI Thread)
         composeRule.runOnUiThread {
             backStack.add(Routes.HomePokemon)
             backStack.removeLastOrNull()
         }
 
+        // Compruebo que la ultima pantalla cargada es la anterior a la indicada antes
         assertTrue(backStack.last() is Routes.Login)
     }
 }

@@ -8,37 +8,37 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+// Prueba local del Login (ejercicio 2)
 @OptIn(ExperimentalCoroutinesApi::class)
 class AuthenticationViewModelUnitTest {
 
     @Test
-    fun authenticationViewModel_LoginSuccess_NavigatesToHome() = runTest {
+    fun authenticationViewModel_LoginExitoso_Unitaria() = runTest {
 
-        // Simula un login que siempre devuelve éxito
+        // Creo un Login falso que siempre es correcto
         val fakeLoginProvider: suspend (String, String) -> Result<Unit> =
             { _, _ -> Result.success(Unit) }
 
-        // Crea el ViewModel usando el login simulado
+        // Creo el ViewModel usando el login simulado
         val viewModel = AuthenticationViewModel(fakeLoginProvider)
 
-        // Variable para comprobar si se llamó a la navegación
+        // Variable que indica si la funcion ha sido llamada
         var navigateCalled = false
 
         viewModel.updateEmail("test@email.com")
         viewModel.updatePassword("123456")
 
-        // Ejecuta el login y marca navegación si tiene éxito
+        // Simula que se ha logeado y si es exitoso navigateCalled = true
         viewModel.clickLogin {
             navigateCalled = true
         }
 
-        // Espera a que terminen las corrutinas
+        // Pausa para que termine la corrutina
         advanceUntilIdle()
 
-        // Comprueba que se llamó a la navegación
+        // Comprueba que es true, sino daria error
         assertTrue(navigateCalled)
-
-        // Comprueba que no se mostró el diálogo de error
+        // Comprueba que es false, sino daria error
         assertFalse(viewModel.uiState.value.showDialogError)
     }
 }
