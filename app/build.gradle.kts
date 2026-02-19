@@ -8,13 +8,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.garcialovilloalberto_practica3"
+    namespace = "com.AlbertoGarciaLovillo.AppPokemon"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.garcialovilloalberto_practica3"
+        applicationId = "com.AlbertoGarciaLovillo.AppPokemon"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
